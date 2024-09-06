@@ -1,0 +1,7 @@
+This directory contains a vendored copy of the github.com/Azure/azure-rest-api-specs repository.
+
+Update it with the following command from the root of the repository.
+
+```
+make -f openshift/Makefile  update-azure-rest-specs
+```
