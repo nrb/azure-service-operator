@@ -21,7 +21,8 @@ export KUBEBUILDER_CONTROLPLANE_START_TIMEOUT ?= 60s
 export KUBEBUILDER_CONTROLPLANE_STOP_TIMEOUT ?= 60s
 
 # Directories
-ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+# Use the repository root, not the openshift directory.
+ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))/..))
 BIN_DIR := $(ROOT_DIR)/bin
 TOOLS_DIR := $(ROOT_DIR)/tools
 TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
@@ -54,3 +55,44 @@ $(SETUP_ENVTEST): # Build setup-envtest from tools folder.
 
 # TODO(nrb): Document e2e variables needed
 # TODO(nrb): Write test wrapper
+
+
+
+.PHONY: controller-generate-crds
+controller-generate-crds:
+	echo "TODO"
+
+.PHONY: controller-run-kustomize-for-envtest
+controller-run-kustomize-for-envtest:
+	echo "TODO"
+
+
+.PHONY: install-deps
+install-deps:
+	${ROOT_DIR}/.devcontainer/install-dependencies.sh
+
+.PHONY: generate-crds
+generate-crds:
+	task controller:generate-crds
+
+
+.PHONY: update-azure-rest-specs
+update-azure-rest-specs:
+	git submodule update --init
+	cp v2/specs/azure-rest-api-specs/LICENSE openshift/azure-rest-api-specs/LICENSE
+	cp -r v2/specs/azure-rest-api-specs/specification/** openshift/azure-rest-api-specs/specification/
+
+# task: "controller:run-kustomize-for-envtest" started
+# task: "controller:generate-kustomize" started
+# task: "controller:generate-crds" started
+# task: "controller:generate-types" started
+# task: "controller:generate-genruntime-deepcopy" started
+# task: "generator:build" started
+# task: [generator:build] go build -ldflags "-X github.com/Azure/azure-service-operator/v2/internal/version.BuildVersion=v2.8.0-rev.46-dirty" -o ../../bin/aso-gen .
+# task: Task "controller:generate-genruntime-deepcopy" is up to date
+# task: "generator:build" finished
+# task: Task "controller:generate-types" is up to date
+# task: Task "controller:generate-crds" is up to date
+# task: Task "controller:generate-kustomize" is up to date
+# task: Task "controller:run-kustomize-for-envtest" is up to date
+

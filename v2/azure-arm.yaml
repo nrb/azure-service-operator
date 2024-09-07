@@ -1,4 +1,4 @@
-schemaRoot: "./specs/azure-rest-api-specs/specification/"
+schemaRoot: "../openshift/azure-rest-api-specs/specification/"
 
 destinationGoModuleFile: go.mod
 

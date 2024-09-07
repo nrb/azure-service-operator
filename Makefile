@@ -410,3 +410,9 @@ generate-operator-bundle: manifests
 	yq eval -i ".spec.replaces = \"azure-service-operator.v$(PREVIOUS_BUNDLE_VERSION)\"" bundle/manifests/azure-service-operator.clusterserviceversion.yaml
 	# Rename the csv to simplify adding to the community-operators repo for a PR
 	mv bundle/manifests/azure-service-operator.clusterserviceversion.yaml bundle/manifests/azure-service-operator.v$(LATEST_TAG).clusterserviceversion.yaml
+
+## --------------------------------------
+## Openshift specific include
+## --------------------------------------
+
+include openshift/Makefile
